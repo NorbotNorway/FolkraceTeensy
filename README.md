@@ -7,6 +7,7 @@ _Hardware_
 * Hook up two sidesensors
 * Test LiPo batteries
 * Hook up startmodule
+* Fix steering screw
 
 _Software_
 * Read two more sensor
