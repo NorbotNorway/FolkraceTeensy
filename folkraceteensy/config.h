@@ -4,10 +4,16 @@
  * Pins
  */
 
-int frontSensorOut = 18; //Value from front sensor
-int frontSensorEnable = 19;
+//NB, I've switched OUT and ENABLE around from the Eagle schematic
+int frontSensorOut = 20;
+int frontSensorEnable = 21;
+int leftSensorOut = 22;
+int leftSensorEnable = 23;
+int rightSensorOut = 18;
+int rightSensorEnable = 19;
 int ledPin = 13;  //Onboard LED
-int frontSensorValue = 0;
+
+
 
 int steeringPin = 4;
 int motorPin = 3;
@@ -22,5 +28,7 @@ Servo servoMotor;
 /*
  * Variables
  */
-
+int frontSensorValue = 0;
+int rightSensorValue = 0;
+int leftSensorValue = 0;
 int pos = 0;
