@@ -5,6 +5,10 @@
 
 #include <Servo.h>
 #include "config.h"
+#include "startmodule"
+
+//The car has ten gears. They control the direction and speed. Number is percentage.
+int gearSpeeds[10] = {-100, -75, -50, -25, 0, 10, 25, 50, 75, 100};
 
 void setup() {
 
@@ -26,17 +30,41 @@ void setup() {
 
 void loop() {
 
+  if (sm_state == WAITING || STOP)
+  {
+    stop();
+    return;
+  }
+
+  changeSpeed();
+  //changeDirection();
+  setDirection();
+  setSpeed();
+  
+
+  //int newDirection = car.guessBestDirection()
+  //int newSpeed = car.guessBestSpeed();
+
+  //drive(newDirection, newSpeed);
+  
+  //if (car.pathAheadIsClear())
+  //{
+//    car.drive(MOTOR_FORWARD);
+//  }
+  
+
   //Read the front sensor, and light LED accordingly
   frontSensorValue = analogRead(frontSensorOut);
   if (frontSensorValue > 512)
   {
-    servoMotor.writeMicroseconds(1500);
+    servoMotor.writeMicroseconds(MOTOR_STOP);
     //Serial.println("Motor running");
     //delay(30);
   }
   else
   {
-    servoMotor.writeMicroseconds(1750);
+    //map(50, MOTOR_STOP, MOTOR_FORWARD, 0, 100);
+    servoMotor.writeMicroseconds(MOTOR_FORWARD);
     //delay(30);
   }
 
