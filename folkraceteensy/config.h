@@ -2,17 +2,20 @@
  * Pins
  */
 //NB, I've switched OUT and ENABLE around from the Eagle schematic
-const int frontSensorOut = 20;
-const int frontSensorEnable = 21;
-const int leftSensorOut = 22;
-const int leftSensorEnable = 23;
-const int rightSensorOut = 18;
-const int rightSensorEnable = 19;
-const int ledPin = 13;  //Onboard LED
-const int startmodulePin = -1; //TODO
+const int SENSOR_FRONT_OUT_PIN = 20;
+const int SENSOR_FRONT_EN_PIN = 21;
+const int SENSOR_LEFT_OUT_PIN = 22;
+const int SENSOR_LEFT_EN_PIN = 23;
+const int SENSOR_RIGHT_OUT_PIN = 18;
+const int SENSOR_FRONT_EN_PIN = 19;
+const int LED_PIN = 13;  //Onboard LED
+const int STARTMODULE_PIN = -1; //TODO
 
-const int steeringPin = 4;
-const int motorPin = 3;
+const int SERVO_STEERING_PIN = 4;
+const int SERVO_MOTOR_PIN = 3;
+
+const int LED_SLOW_BLINK = 500; //ms
+const int LED_FAST_BLINK = 200; //ms
 
 /*
  * Classes
@@ -37,3 +40,6 @@ const int MOTOR_FORWARD = 1750;
 
 const int SENSOR_MIN_DISTANCE = 10; //cm
 const int SENSOR_MAX_DISTANCE = 150; //cm
+
+const int SERVO_STEERING_MIN = 1100; //us
+const int SERVO_STEERING_MAX = 1900; //us

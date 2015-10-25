@@ -6,40 +6,54 @@
 #include <Servo.h>
 #include "config.h"
 #include "startmodule"
+#include "car"
+#include "motor"
+#include "steering"
 
 //The car has ten gears. They control the direction and speed. Number is percentage.
-int gearSpeeds[10] = {-100, -75, -50, -25, 0, 10, 25, 50, 75, 100};
+//int gearSpeeds[10] = {-100, -75, -50, -25, 0, 10, 25, 50, 75, 100};
 
 void setup() {
 
   //Define inputs and outputs
-  pinMode(frontSensorOut, INPUT);
-  pinMode(frontSensorEnable, OUTPUT);
-  pinMode(ledPin, OUTPUT);
+  pinMode(SENSOR_FRONT_EN_PIN, OUTPUT);
+  pinMode(SENSOR_LEFT_EN_PIN, OUTPUT);
+  pinMode(SENSOR_RIGHT_EN_PIN, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
 
   //Serial connection back to Arduino IDE
   Serial.begin(9600);
 
-  //Enable the sensors
-  digitalWrite(frontSensorEnable, HIGH);
+  //Enable the sensors and startmodule
+  digitalWrite(SENSOR_FRONT_EN_PIN, HIGH);
+  digitalWrite(SENSOR_LEFT_EN_PIN, HIGH);
+  digitalWrite(SENSOR_RIGHT_EN_PIN, HIGH);
 
   //Connect servos
-  servoSteering.attach(steeringPin);
-  servoMotor.attach(motorPin);
+  servoSteering.attach(SERVO_STEERING_PIN);
+  servoMotor.attach(SERVO_MOTOR_PIN);
 }
 
 void loop() {
 
-  if (sm_state == WAITING || STOP)
-  {
-    stop();
-    return;
-  }
+  startmoduleCheckState();
 
-  changeSpeed();
-  //changeDirection();
-  setDirection();
-  setSpeed();
+  if (startmodule_state == WAITING)
+  {
+    carWait();
+  }
+  else if (startmodule_state == RUNNING)
+  {
+    carDrive();
+  }
+  else if (startmodule_state == STOP)
+  {
+    carStop();
+  }
+  else
+  {
+    Serial.println("No StartModule state set");
+  }
   
 
   //int newDirection = car.guessBestDirection()
@@ -51,7 +65,7 @@ void loop() {
   //{
 //    car.drive(MOTOR_FORWARD);
 //  }
-  
+  /*
 
   //Read the front sensor, and light LED accordingly
   frontSensorValue = analogRead(frontSensorOut);
@@ -89,4 +103,5 @@ void loop() {
   }
 
   //Serial.println(frontSensorValue);
+  */
 }

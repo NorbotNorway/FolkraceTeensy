@@ -3,24 +3,28 @@
  * The car has parts it controls, like motor, steering and sensors.
  */
 
-boolean carEngineIsOff()
+void carWait()
 {
- return true; 
+  motorSetSpeed(0);
+  steeringTurnTo(0);
+  ledBlink(LED_SLOW_BLINK);
 }
 
-void carDriveForward(int speed)
+void carDrive()
 {
+  //Figure out best direction to go. Continously calculate what the best speed and direction is.
+  calculateMotorSpeed();
+  calculateDirection();
 }
 
 void carStop()
 {
+  ledBlink(LED_FAST_BLINK);
   setMotorSpeed(0);
+  turnTo(0);
 }
 
-void carReverse(int speed)
-{
-  
-}
+
 
 /*
  * Read the front sensor, and determines which speed to use. When nothing in front, then go fast. When really close, back up.
@@ -30,14 +34,8 @@ int getSuggestedGear()
   int minDistance = 0;
   int maxDistance = 1023;
   
-  int distanceFront = analogRead(FRONT_SENSOR_PIN);
+  int distanceFront = analogRead(SENSOR_FRONT_OUT_PIN);
   int gear = map(distanceFront, minDistance, maxDistance, 0, 10);
   gear = constrain(gear, 0, 10);
   return gear;
 }
-
-void changeSpeed()
-{
-  
-}
-
