@@ -2,7 +2,7 @@
  * Control the teensy LED
  */
 
-ledBlink(int speed)
+void ledBlink(int speed)
 {
   digitalWrite(LED_PIN, HIGH);
   delay(speed);

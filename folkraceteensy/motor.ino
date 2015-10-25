@@ -18,6 +18,12 @@ void motorSetSpeed(int speedPercentage)
   servoMotor.writeMicroseconds(microseconds); 
 }
 
+int calculateMotorSpeed()
+{
+  //TODO
+  return 50;
+}
+
 int getCurrentSpeed()
 {
   return _motorSpeed;

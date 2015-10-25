@@ -20,8 +20,8 @@ void carDrive()
 void carStop()
 {
   ledBlink(LED_FAST_BLINK);
-  setMotorSpeed(0);
-  turnTo(0);
+  motorSetSpeed(0);
+  steeringTurnTo(0);
 }
 
 

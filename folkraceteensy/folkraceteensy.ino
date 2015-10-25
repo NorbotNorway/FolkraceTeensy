@@ -5,10 +5,10 @@
 
 #include <Servo.h>
 #include "config.h"
-#include "startmodule"
-#include "car"
-#include "motor"
-#include "steering"
+//#include "startmodule"
+//#include "car"
+//#include "motor"
+//#include "steering"
 
 //The car has ten gears. They control the direction and speed. Number is percentage.
 //int gearSpeeds[10] = {-100, -75, -50, -25, 0, 10, 25, 50, 75, 100};
@@ -32,6 +32,9 @@ void setup() {
   //Connect servos
   servoSteering.attach(SERVO_STEERING_PIN);
   servoMotor.attach(SERVO_MOTOR_PIN);
+
+  //Listen for changes on the Startmodule
+  attachInterrupt(STARTMODULE_PIN, changeStartmoduleState, RISING);
 }
 
 void loop() {

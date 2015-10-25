@@ -43,7 +43,7 @@ int suggestNewDirection(int frontSensorDistance, int leftSensorDistance, int rig
   }
 
   //Compensate angle using current speed. If we're driving fast, then make smaller turns.
-  if (currentSpeed() > 50)
+  if (getCurrentSpeed() > 50)
   {
     newDirection = newDirection / 2;
   }
