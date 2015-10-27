@@ -29,5 +29,6 @@ void changeStartmoduleState()
     startmodule_state = RUNNING;
   else if (startmodule_state == RUNNING && sm_value == false)
     startmodule_state = STOP;
-}
 
+    Serial.println("INTERRUPT!");
+}

@@ -19,6 +19,7 @@ void setup() {
   pinMode(SENSOR_FRONT_EN_PIN, OUTPUT);
   pinMode(SENSOR_LEFT_EN_PIN, OUTPUT);
   pinMode(SENSOR_RIGHT_EN_PIN, OUTPUT);
+  pinMode(STARTMODULE_PIN, INPUT);
   pinMode(LED_PIN, OUTPUT);
 
   //Serial connection back to Arduino IDE
@@ -34,30 +35,43 @@ void setup() {
   servoMotor.attach(SERVO_MOTOR_PIN);
 
   //Listen for changes on the Startmodule
-  attachInterrupt(STARTMODULE_PIN, changeStartmoduleState, RISING);
+  attachInterrupt(STARTMODULE_PIN, changeStartmoduleState, CHANGE);
 }
 
 void loop() {
 
-  startmoduleCheckState();
+  //steeringTurnTo(0);
+
+  //startmoduleCheckState();
+
+  //Serial.println("State is = " + startmodule_state);
+  //int sm = digitalRead(STARTMODULE_PIN);
+  //if (sm > 0)
+  //  Serial.println("HIGH");
+  //Serial.println(sm);
+  delay(60);
 
   if (startmodule_state == WAITING)
   {
-    carWait();
+    //carWait();
+    Serial.println("StartModule is WAITING");
   }
   else if (startmodule_state == RUNNING)
   {
-    carDrive();
+    //carDrive();
+    Serial.println("StartModule is RUNNING");
   }
   else if (startmodule_state == STOP)
   {
-    carStop();
+    //carStop();
+    Serial.println("StartModule is STOPPED");
   }
   else
   {
     Serial.println("No StartModule state set");
   }
-  
+
+  return;
 
   //int newDirection = car.guessBestDirection()
   //int newSpeed = car.guessBestSpeed();
