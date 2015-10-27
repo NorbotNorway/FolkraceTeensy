@@ -40,35 +40,24 @@ void setup() {
 
 void loop() {
 
-  //steeringTurnTo(0);
+//  int cm = getSensorDistanceInCm(SENSOR_FRONT_OUT_PIN);
+  //Serial.println(cm);
+delay(150);
+//  return;
 
-  //startmoduleCheckState();
-
-  //Serial.println("State is = " + startmodule_state);
-  //int sm = digitalRead(STARTMODULE_PIN);
-  //if (sm > 0)
-  //  Serial.println("HIGH");
-  //Serial.println(sm);
-  delay(60);
+startmodule_state = RUNNING;
 
   if (startmodule_state == WAITING)
   {
-    //carWait();
-    Serial.println("StartModule is WAITING");
+    carWait();
   }
   else if (startmodule_state == RUNNING)
   {
-    //carDrive();
-    Serial.println("StartModule is RUNNING");
+    carDrive();
   }
   else if (startmodule_state == STOP)
   {
     //carStop();
-    Serial.println("StartModule is STOPPED");
-  }
-  else
-  {
-    Serial.println("No StartModule state set");
   }
 
   return;

@@ -14,7 +14,7 @@ const int STARTMODULE_PIN = 5;
 const int SERVO_STEERING_PIN = 4;
 const int SERVO_MOTOR_PIN = 3;
 
-const int LED_SLOW_BLINK = 500; //ms
+const int LED_SLOW_BLINK = 750; //ms
 const int LED_FAST_BLINK = 200; //ms
 
 /*

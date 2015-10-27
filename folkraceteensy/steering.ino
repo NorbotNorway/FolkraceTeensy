@@ -16,7 +16,19 @@ void calculateDirection()
   int r = getSensorDistanceInCm(SENSOR_RIGHT_OUT_PIN);
   int speed = getCurrentSpeed();
 
+/*
+  Serial.print("F=");
+  Serial.print(f);
+  Serial.print("\t");
+  Serial.print("L=");
+  Serial.print(l);
+  Serial.print("\t");
+  Serial.print("R=");
+  Serial.println(r);
+  */
   int newDirection = suggestNewDirection(f, l, r, speed);
+  //Serial.print("New Direction: ");
+  //Serial.println(newDirection);
 
   steeringTurnTo(newDirection);
 }
@@ -30,13 +42,15 @@ int suggestNewDirection(int frontSensorDistance, int leftSensorDistance, int rig
   int newDirection = 0;
   //TODO - add smoothing to avoid erratic turning?
 
-  if (frontSensorDistance > 50)
+  if (frontSensorDistance > 180)
   {
     newDirection = 0; //Nothing ahead, go straight.
   }
   else //Use sidesensors to determine which way to turn.
   {
-    int value = (leftSensorDistance / (leftSensorDistance + rightSensorDistance)) * 100;
+    
+    int value = (rightSensorDistance * 100 / (leftSensorDistance + rightSensorDistance));
+    Serial.println(value);
     value = constrain(value, 0, 100);
     value = map(value, 0, 100, -90, 90); //Go from percentage to degrees
     newDirection = value;
