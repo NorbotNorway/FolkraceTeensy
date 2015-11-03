@@ -5,15 +5,18 @@
 
 #include <Servo.h>
 #include "config.h"
-//#include "startmodule"
-//#include "car"
-//#include "motor"
-//#include "steering"
 
-//The car has ten gears. They control the direction and speed. Number is percentage.
-//int gearSpeeds[10] = {-100, -75, -50, -25, 0, 10, 25, 50, 75, 100};
+const int numReadings = 10;
+int readings[numReadings];
+int readIndex = 0;
+int total = 0;
+int average = 0;
+
 
 void setup() {
+
+  //Serial connection back to Arduino IDE
+  Serial.begin(9600);
 
   //Define inputs and outputs
   pinMode(SENSOR_FRONT_EN_PIN, OUTPUT);
@@ -22,10 +25,7 @@ void setup() {
   pinMode(STARTMODULE_PIN, INPUT);
   pinMode(LED_PIN, OUTPUT);
 
-  //Serial connection back to Arduino IDE
-  Serial.begin(9600);
-
-  //Enable the sensors and startmodule
+  //Enable the sensors
   digitalWrite(SENSOR_FRONT_EN_PIN, HIGH);
   digitalWrite(SENSOR_LEFT_EN_PIN, HIGH);
   digitalWrite(SENSOR_RIGHT_EN_PIN, HIGH);
@@ -36,16 +36,34 @@ void setup() {
 
   //Listen for changes on the Startmodule
   attachInterrupt(STARTMODULE_PIN, changeStartmoduleState, CHANGE);
+
+    for (int thisReading = 0; thisReading < numReadings; thisReading++) {
+    readings[thisReading] = 0;
+  }
 }
+
 
 void loop() {
 
-//  int cm = getSensorDistanceInCm(SENSOR_FRONT_OUT_PIN);
-  //Serial.println(cm);
-delay(150);
-//  return;
+  delay(100);
+  total = total - readings[readIndex];
+  int distance = getSensorDistanceInCm(SENSOR_FRONT_OUT_PIN);
+  readings[readIndex] = distance;
+  total = total + distance;
+  readIndex = readIndex + 1;
+  if (readIndex >= numReadings)
+    readIndex = 0;
+  Serial.print(readIndex);
+  average = total / numReadings;
+  Serial.print("AverageDistance: ");
+  Serial.println(average);
+  
+  Serial.print("Distance:");
+  Serial.print(distance);
+  Serial.println(" cm");
+  return;
 
-startmodule_state = RUNNING;
+  startmodule_state = RUNNING; //DEBUG
 
   if (startmodule_state == WAITING)
   {
@@ -54,6 +72,8 @@ startmodule_state = RUNNING;
   else if (startmodule_state == RUNNING)
   {
     carDrive();
+
+    //Serial.println(GetState());
   }
   else if (startmodule_state == STOP)
   {
@@ -61,53 +81,4 @@ startmodule_state = RUNNING;
   }
 
   return;
-
-  //int newDirection = car.guessBestDirection()
-  //int newSpeed = car.guessBestSpeed();
-
-  //drive(newDirection, newSpeed);
-  
-  //if (car.pathAheadIsClear())
-  //{
-//    car.drive(MOTOR_FORWARD);
-//  }
-  /*
-
-  //Read the front sensor, and light LED accordingly
-  frontSensorValue = analogRead(frontSensorOut);
-  if (frontSensorValue > 512)
-  {
-    servoMotor.writeMicroseconds(MOTOR_STOP);
-    //Serial.println("Motor running");
-    //delay(30);
-  }
-  else
-  {
-    //map(50, MOTOR_STOP, MOTOR_FORWARD, 0, 100);
-    servoMotor.writeMicroseconds(MOTOR_FORWARD);
-    //delay(30);
-  }
-
-  //Read the side sensors, and turn the other way if object is detected
-  rightSensorValue = analogRead(rightSensorOut);
-  leftSensorValue = analogRead(leftSensorOut);
-  //Serial.println(rightSensorValue);
-  if (rightSensorValue > 512)
-  {
-    servoSteering.writeMicroseconds(1000);
-    digitalWrite(ledPin, HIGH);
-  }
-  else if (leftSensorValue > 512)
-  {
-    servoSteering.writeMicroseconds(2000);
-    digitalWrite(ledPin, HIGH);
-  }
-  else
-  {
-    servoSteering.writeMicroseconds(1500);
-    digitalWrite(ledPin, LOW);
-  }
-
-  //Serial.println(frontSensorValue);
-  */
 }

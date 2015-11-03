@@ -13,8 +13,13 @@ void carWait()
 void carDrive()
 {
   //Figure out best direction to go. Continously calculate what the best speed and direction is.
-  calculateMotorSpeed();
-  calculateDirection();
+  int speed = calculateMotorSpeed();
+  //int direction = calculateDirection();
+  //Serial.print("Speed: ");
+  //Serial.println(speed);
+
+  //motorSetSpeed(speed);
+  //steeringTurnTo(direction);
 }
 
 void carStop()

@@ -2,12 +2,12 @@
  * Pins
  */
 //NB, I've switched OUT and ENABLE around from the Eagle schematic
-const int SENSOR_FRONT_OUT_PIN = 20;
-const int SENSOR_FRONT_EN_PIN = 21;
+const int SENSOR_FRONT_OUT_PIN = 18;
+const int SENSOR_FRONT_EN_PIN = 19;
 const int SENSOR_LEFT_OUT_PIN = 22;
 const int SENSOR_LEFT_EN_PIN = 23;
-const int SENSOR_RIGHT_OUT_PIN = 18;
-const int SENSOR_RIGHT_EN_PIN = 19;
+const int SENSOR_RIGHT_OUT_PIN = 20;
+const int SENSOR_RIGHT_EN_PIN = 21;
 const int LED_PIN = 13;  //Onboard LED
 const int STARTMODULE_PIN = 5;
 

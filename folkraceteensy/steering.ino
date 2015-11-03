@@ -8,7 +8,7 @@
  * If there is something close up front, then go to the side with furthest distance to object.
  * If the speed is high, then just turn slightly. If speed is low, then turn hard.
  */
-void calculateDirection()
+int calculateDirection()
 {
   //Gather sensor readings, and use those to suggest new direction. Then set that direction.
   int f = getSensorDistanceInCm(SENSOR_FRONT_OUT_PIN);
@@ -16,7 +16,7 @@ void calculateDirection()
   int r = getSensorDistanceInCm(SENSOR_RIGHT_OUT_PIN);
   int speed = getCurrentSpeed();
 
-/*
+
   Serial.print("F=");
   Serial.print(f);
   Serial.print("\t");
@@ -25,12 +25,12 @@ void calculateDirection()
   Serial.print("\t");
   Serial.print("R=");
   Serial.println(r);
-  */
+  
   int newDirection = suggestNewDirection(f, l, r, speed);
   //Serial.print("New Direction: ");
   //Serial.println(newDirection);
 
-  steeringTurnTo(newDirection);
+  return newDirection;
 }
 
 /*
@@ -42,7 +42,7 @@ int suggestNewDirection(int frontSensorDistance, int leftSensorDistance, int rig
   int newDirection = 0;
   //TODO - add smoothing to avoid erratic turning?
 
-  if (frontSensorDistance > 180)
+  if (frontSensorDistance > 100)
   {
     newDirection = 0; //Nothing ahead, go straight.
   }
@@ -50,9 +50,9 @@ int suggestNewDirection(int frontSensorDistance, int leftSensorDistance, int rig
   {
     
     int value = (rightSensorDistance * 100 / (leftSensorDistance + rightSensorDistance));
-    Serial.println(value);
+    //Serial.println(value);
     value = constrain(value, 0, 100);
-    value = map(value, 0, 100, -90, 90); //Go from percentage to degrees
+    value = map(value, 0, 100, -80, 80); //Go from percentage to degrees
     newDirection = value;
   }
 
