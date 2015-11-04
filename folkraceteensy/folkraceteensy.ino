@@ -6,11 +6,11 @@
 #include <Servo.h>
 #include "config.h"
 
-const int numReadings = 10;
-int readings[numReadings];
-int readIndex = 0;
-int total = 0;
-int average = 0;
+//const int numReadings = 10;
+//int readings[numReadings];
+//int readIndex = 0;
+//int total = 0;
+//int average = 0;
 
 
 void setup() {
@@ -37,32 +37,41 @@ void setup() {
   //Listen for changes on the Startmodule
   attachInterrupt(STARTMODULE_PIN, changeStartmoduleState, CHANGE);
 
-    for (int thisReading = 0; thisReading < numReadings; thisReading++) {
-    readings[thisReading] = 0;
-  }
+  //  for (int thisReading = 0; thisReading < numReadings; thisReading++) {
+  //  readings[thisReading] = 0;
+  //}
 }
 
 
 void loop() {
 
-  delay(100);
-  total = total - readings[readIndex];
+//  Serial.print("Front: ");
+//  Serial.println(getAverageSensorDistanceInCm(SENSOR_FRONT_OUT_PIN));
+//  Serial.print("Left: ");
+//  Serial.println(getAverageSensorDistanceInCm(SENSOR_LEFT_OUT_PIN));
+//  Serial.print("Right:");
+//  Serial.println(  getAverageSensorDistanceInCm(SENSOR_RIGHT_OUT_PIN));
+ 
+  
+  //delay(100);
+
+ /* total = total - readings[readIndex];
   int distance = getSensorDistanceInCm(SENSOR_FRONT_OUT_PIN);
   readings[readIndex] = distance;
   total = total + distance;
   readIndex = readIndex + 1;
   if (readIndex >= numReadings)
     readIndex = 0;
-  Serial.print(readIndex);
+  //Serial.print(readIndex);
   average = total / numReadings;
-  Serial.print("AverageDistance: ");
+  //Serial.print("AverageDistance: ");
   Serial.println(average);
   
-  Serial.print("Distance:");
-  Serial.print(distance);
-  Serial.println(" cm");
+  //Serial.print("Distance:");
+  //Serial.print(distance);
+  //Serial.println(" cm");
   return;
-
+*/
   startmodule_state = RUNNING; //DEBUG
 
   if (startmodule_state == WAITING)

@@ -14,12 +14,12 @@ void carDrive()
 {
   //Figure out best direction to go. Continously calculate what the best speed and direction is.
   int speed = calculateMotorSpeed();
-  //int direction = calculateDirection();
+  int direction = calculateDirection();
   //Serial.print("Speed: ");
   //Serial.println(speed);
 
-  //motorSetSpeed(speed);
-  //steeringTurnTo(direction);
+  motorSetSpeed(speed);
+  steeringTurnTo(direction);
 }
 
 void carStop()
@@ -28,8 +28,6 @@ void carStop()
   motorSetSpeed(0);
   steeringTurnTo(0);
 }
-
-
 
 /*
  * Read the front sensor, and determines which speed to use. When nothing in front, then go fast. When really close, back up.

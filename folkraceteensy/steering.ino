@@ -11,12 +11,11 @@
 int calculateDirection()
 {
   //Gather sensor readings, and use those to suggest new direction. Then set that direction.
-  int f = getSensorDistanceInCm(SENSOR_FRONT_OUT_PIN);
-  int l = getSensorDistanceInCm(SENSOR_LEFT_OUT_PIN);
-  int r = getSensorDistanceInCm(SENSOR_RIGHT_OUT_PIN);
+  int f = getAverageSensorDistanceInCm(SENSOR_FRONT_OUT_PIN);
+  int l = getAverageSensorDistanceInCm(SENSOR_LEFT_OUT_PIN);
+  int r = getAverageSensorDistanceInCm(SENSOR_RIGHT_OUT_PIN);
   int speed = getCurrentSpeed();
-
-
+/*
   Serial.print("F=");
   Serial.print(f);
   Serial.print("\t");
@@ -25,22 +24,19 @@ int calculateDirection()
   Serial.print("\t");
   Serial.print("R=");
   Serial.println(r);
-  
+  */
   int newDirection = suggestNewDirection(f, l, r, speed);
-  //Serial.print("New Direction: ");
-  //Serial.println(newDirection);
 
   return newDirection;
 }
 
 /*
- * Based on the sensorreadings, and the current speed, calculate the new direction we should go in. 
+ * Based on the sensorreadings and the current speed, calculate the new direction we should go in. 
  * Returns between -90 (hard left) and 90 (hard right) degrees.
  */
 int suggestNewDirection(int frontSensorDistance, int leftSensorDistance, int rightSensorDistance, int currentSpeed)
 { 
   int newDirection = 0;
-  //TODO - add smoothing to avoid erratic turning?
 
   if (frontSensorDistance > 100)
   {

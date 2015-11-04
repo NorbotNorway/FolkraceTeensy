@@ -25,7 +25,7 @@ int calculateMotorSpeed()
   const int min_distance = 10; //cm
   const int max_distance = 150; //cm
   
-  int distance = getSensorDistanceInCm(SENSOR_FRONT_OUT_PIN);
+  int distance = getAverageSensorDistanceInCm(SENSOR_FRONT_OUT_PIN);
 //  distance = rollingAverage(historyArray, 10, distance);
   
   distance = constrain(distance, min_distance, max_distance);
