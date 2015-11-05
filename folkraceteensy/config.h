@@ -41,6 +41,8 @@ const int MOTOR_FORWARD = 1750;
 const int SERVO_MOTOR_MAX = 1900;
 const int SERVO_MOTOR_MIN = 1100;
 
+const int SENSOR_AVERAGE_COUNT = 5; //Readings from sensors are smoothed out using an average of the last X readings.
+
 const int SENSOR_MIN_DISTANCE = 10; //cm
 const int SENSOR_MAX_DISTANCE = 150; //cm
 
@@ -49,6 +51,10 @@ const int SERVO_STEERING_MAX = 1900; //us
 
 const int MOTOR_MINIMUM_SPEED = 50; //% - the slowest speed before stalling.
 const int MOTOR_MAXIMUM_SPEED = 50; //% - the fastest the car should ever go.
+const int MOTOR_REVERSE_SPEED = -50;//% - speed to use when reversing. Negative number!
+
+const int SLOW_TO_FAST_DISTANCE = 70; //cm. If distance in front shorter than this, go SLOW. If equal or over, go FAST.
+const int CRASH_DISTANCE = 15; //cm - below this indicates that we've stuck up against a wall or opponent.
 
  enum startmoduleStates {
   WAITING,
@@ -57,3 +63,6 @@ const int MOTOR_MAXIMUM_SPEED = 50; //% - the fastest the car should ever go.
  };
 
  volatile startmoduleStates startmodule_state = WAITING;
+
+ //For debugging
+ const bool DISABLE_MOTOR = false;

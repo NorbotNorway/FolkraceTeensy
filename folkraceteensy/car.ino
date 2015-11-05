@@ -15,13 +15,9 @@ void carDrive()
   //Figure out best direction to go. Continously calculate what the best speed and direction is.
   int speed = calculateMotorSpeed();
   int direction = calculateDirection();
-  //Serial.print("Speed: ");
-  Serial.println(speed);
 
   motorSetSpeed(speed);
   steeringTurnTo(direction);
-  
-  //delay(10);
 }
 
 void carStop()
@@ -34,6 +30,7 @@ void carStop()
 /*
  * Read the front sensor, and determines which speed to use. When nothing in front, then go fast. When really close, back up.
  */
+ /*
 int getSuggestedGear()
 {
   int minDistance = 0;
@@ -44,3 +41,4 @@ int getSuggestedGear()
   gear = constrain(gear, 0, 10);
   return gear;
 }
+*/

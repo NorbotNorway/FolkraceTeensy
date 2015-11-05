@@ -36,6 +36,7 @@ void setup() {
 
   //Listen for changes on the Startmodule
   attachInterrupt(STARTMODULE_PIN, changeStartmoduleState, CHANGE);
+  startmodule_state = WAITING;
 
   //  for (int thisReading = 0; thisReading < numReadings; thisReading++) {
   //  readings[thisReading] = 0;
@@ -57,7 +58,7 @@ void loop() {
   //steeringTurnTo(0);
   //return ;
   
-  startmodule_state = RUNNING; //DEBUG
+  //startmodule_state = WAITING; //DEBUG
 
   if (startmodule_state == WAITING)
   {

@@ -1,13 +1,12 @@
 /*
  * Control the motor that drives the car forwards and backwards.
+ * Speed can be from -100 to 100 percent. Negative is backwards, Positive is forward.
+ * 
  */
-
-/*
- * Speed can be from -100 to 100 percent).
- */
+ 
 int _motorSpeed = 0;
 
-
+//TODO - calculateMotorSpeed and getSpeedFromDistance probably needs to be cleaned up a bit.
 
 int calculateMotorSpeed()
 { 
@@ -38,16 +37,24 @@ int getSpeedFromDistance(int distance)
 
   distance = constrain(distance, min_distance, max_distance);
 
-  int speed;
+  int speed = 0;
 
-  if (distance >= 80)
-    speed = 60;
+  /*if (distance >= 80)
+    speed = MOTOR_MAXIMUM_SPEED;
   else if (distance < 80 && distance >= 15)
-    speed =  40;
+    speed =  MOTOR_MINIMUM_SPEED;
   else if (distance < 15)
-    speed = -50; 
+    speed = MOTOR_MINIMUM_SPEED * -1; 
   else
-    speed = -100;
+    speed = MOTOR_MAXIMUM_SPEED * -1;
+*/
+  //Adjust speed based on the front-sensor.
+  if (distance >= SLOW_TO_FAST_DISTANCE)
+    speed = MOTOR_MAXIMUM_SPEED;
+  else if (distance < SLOW_TO_FAST_DISTANCE && distance >= CRASH_DISTANCE)
+    speed = MOTOR_MINIMUM_SPEED;
+  else if (distance < CRASH_DISTANCE)
+    speed = MOTOR_REVERSE_SPEED;
 
   return speed;
 }
