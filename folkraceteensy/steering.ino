@@ -8,6 +8,9 @@
  * If there is something close up front, then go to the side with furthest distance to object.
  * If the speed is high, then just turn slightly. If speed is low, then turn hard.
  */
+
+int _currentDirection = 0;
+ 
 int calculateDirection()
 {
   //Gather sensor readings, and use those to suggest new direction. Then set that direction.
@@ -57,6 +60,10 @@ int suggestNewDirection(int frontSensorDistance, int leftSensorDistance, int rig
   {
     newDirection = newDirection / 2;
   }
+
+  //If we're reversing, then turn
+  if (getCurrentSpeed() < 0)
+    newDirection = newDirection * -1;
   
   return newDirection;
 }
@@ -66,8 +73,14 @@ int suggestNewDirection(int frontSensorDistance, int leftSensorDistance, int rig
  */
 void steeringTurnTo(int degrees)
 {
+  _currentDirection = degrees;
   int microseconds = map(degrees, -90, 90, SERVO_STEERING_MIN, SERVO_STEERING_MAX);
   microseconds = constrain(microseconds, SERVO_STEERING_MIN, SERVO_STEERING_MAX);
   servoSteering.writeMicroseconds(microseconds);
+}
+
+int getCurrentDirection()
+{
+  return _currentDirection;
 }
 

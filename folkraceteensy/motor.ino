@@ -22,21 +22,20 @@ void motorSetSpeed(int speedPercentage)
 
 int calculateMotorSpeed()
 {
-  const int min_distance = 10; //cm
-  const int max_distance = 150; //cm
+  //const int min_distance = 10; //cm
+  //const int max_distance = 150; //cm
   
   int distance = getAverageSensorDistanceInCm(SENSOR_FRONT_OUT_PIN);
-//  distance = rollingAverage(historyArray, 10, distance);
   
-  distance = constrain(distance, min_distance, max_distance);
-  //distance = mavg(distance);
-  Serial.print("Distance: ");
-  Serial.println(distance);
+  //distance = constrain(distance, min_distance, max_distance);
+  //Serial.print("Distance: ");
+  //Serial.println(distance);
 
   int speed = getSpeedFromDistance(distance);
-  
-  Serial.print("Speed:");
-  Serial.println(speed);
+
+  //If we're turning, then reduce speed
+  if (getCurrentDirection() < -30 || getCurrentDirection() > 30)
+    speed = speed / 2;
 
   return speed;
 }
@@ -48,16 +47,18 @@ int getSpeedFromDistance(int distance)
 
   distance = constrain(distance, min_distance, max_distance);
 
-  if (distance >= 30)
-    return 50;
-  else if (distance < 30 && distance >= 20)
-    return 35;
+  int speed;
+
+  if (distance >= 35)
+    speed = 70;
+  else if (distance < 35 && distance >= 20)
+    speed =  30;
   else if (distance < 20)
-    return -35; 
+    speed = -35; 
   else
-    return 100;
-  
-  //return map(distance, min_distance, max_distance, 0, 100);
+    speed = 100;
+
+  return speed;
 }
 
 int getCurrentSpeed()

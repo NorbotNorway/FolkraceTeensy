@@ -4,7 +4,7 @@
 
 
 
-const int numReadings = 10;
+const int numReadings = 5;
 const int pinCount = 25;
 int readings[pinCount][numReadings]; //Each "Column" contains the sensorreadings. Each "Row" is used for the different pins.
 /*
