@@ -47,6 +47,9 @@ const int SENSOR_MAX_DISTANCE = 150; //cm
 const int SERVO_STEERING_MIN = 1100; //us
 const int SERVO_STEERING_MAX = 1900; //us
 
+const int MOTOR_MINIMUM_SPEED = 50; //% - the slowest speed before stalling.
+const int MOTOR_MAXIMUM_SPEED = 50; //% - the fastest the car should ever go.
+
  enum startmoduleStates {
   WAITING,
   RUNNING,

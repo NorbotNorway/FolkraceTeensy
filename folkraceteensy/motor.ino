@@ -7,35 +7,26 @@
  */
 int _motorSpeed = 0;
 
-void motorSetSpeed(int speedPercentage)
-{
-  if (speedPercentage < 10 && speedPercentage > -10)
-    speedPercentage = 0;
-  
-  _motorSpeed = speedPercentage;
-  
-  int microseconds = map(speedPercentage, -100, 100, SERVO_MOTOR_MIN, SERVO_MOTOR_MAX);
-  microseconds = constrain(microseconds, SERVO_MOTOR_MIN, SERVO_MOTOR_MAX);
-  
-  servoMotor.writeMicroseconds(microseconds); 
-}
+
 
 int calculateMotorSpeed()
-{
-  //const int min_distance = 10; //cm
-  //const int max_distance = 150; //cm
-  
+{ 
   int distance = getAverageSensorDistanceInCm(SENSOR_FRONT_OUT_PIN);
-  
-  //distance = constrain(distance, min_distance, max_distance);
-  //Serial.print("Distance: ");
-  //Serial.println(distance);
-
   int speed = getSpeedFromDistance(distance);
 
   //If we're turning, then reduce speed
-  if (getCurrentDirection() < -30 || getCurrentDirection() > 30)
-    speed = speed / 2;
+  if (getCurrentDirection() < -35 || getCurrentDirection() > 35)
+    speed = speed / 3;
+
+    //Make sure that the speed we set is enough to move the car. It'll stall if the speed is too slow.
+  if (speed > 0 && speed < MOTOR_MINIMUM_SPEED)
+    speed = MOTOR_MINIMUM_SPEED;
+  if (speed < 0 && speed * -1 > MOTOR_MINIMUM_SPEED)
+    speed = MOTOR_MINIMUM_SPEED * -1;
+
+  //Also, make sure we don't go faster than the maximum speed of the car.
+  if (speed > 0) //Going forward
+    speed = constrain(speed, MOTOR_MINIMUM_SPEED, MOTOR_MAXIMUM_SPEED);
 
   return speed;
 }
@@ -49,14 +40,14 @@ int getSpeedFromDistance(int distance)
 
   int speed;
 
-  if (distance >= 35)
-    speed = 70;
-  else if (distance < 35 && distance >= 20)
-    speed =  30;
-  else if (distance < 20)
-    speed = -35; 
+  if (distance >= 80)
+    speed = 60;
+  else if (distance < 80 && distance >= 15)
+    speed =  40;
+  else if (distance < 15)
+    speed = -50; 
   else
-    speed = 100;
+    speed = -100;
 
   return speed;
 }
@@ -66,3 +57,12 @@ int getCurrentSpeed()
   return _motorSpeed;
 }
 
+void motorSetSpeed(int speedPercentage)
+{
+  _motorSpeed = speedPercentage;
+  
+  int microseconds = map(speedPercentage, -100, 100, SERVO_MOTOR_MIN, SERVO_MOTOR_MAX);
+  microseconds = constrain(microseconds, SERVO_MOTOR_MIN, SERVO_MOTOR_MAX);
+  
+  servoMotor.writeMicroseconds(microseconds); 
+}

@@ -45,6 +45,7 @@ void setup() {
 
 void loop() {
 
+// FOR DEBUGGING
 //  Serial.print("Front: ");
 //  Serial.println(getAverageSensorDistanceInCm(SENSOR_FRONT_OUT_PIN));
 //  Serial.print("Left: ");
@@ -52,26 +53,10 @@ void loop() {
 //  Serial.print("Right:");
 //  Serial.println(  getAverageSensorDistanceInCm(SENSOR_RIGHT_OUT_PIN));
  
+  //motorSetSpeed(MOTOR_MINIMUM_SPEED);
+  //steeringTurnTo(0);
+  //return ;
   
-  //delay(100);
-
- /* total = total - readings[readIndex];
-  int distance = getSensorDistanceInCm(SENSOR_FRONT_OUT_PIN);
-  readings[readIndex] = distance;
-  total = total + distance;
-  readIndex = readIndex + 1;
-  if (readIndex >= numReadings)
-    readIndex = 0;
-  //Serial.print(readIndex);
-  average = total / numReadings;
-  //Serial.print("AverageDistance: ");
-  Serial.println(average);
-  
-  //Serial.print("Distance:");
-  //Serial.print(distance);
-  //Serial.println(" cm");
-  return;
-*/
   startmodule_state = RUNNING; //DEBUG
 
   if (startmodule_state == WAITING)
@@ -81,13 +66,9 @@ void loop() {
   else if (startmodule_state == RUNNING)
   {
     carDrive();
-
-    //Serial.println(GetState());
   }
   else if (startmodule_state == STOP)
   {
-    //carStop();
+    carStop();
   }
-
-  return;
 }

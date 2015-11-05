@@ -41,25 +41,24 @@ int suggestNewDirection(int frontSensorDistance, int leftSensorDistance, int rig
 { 
   int newDirection = 0;
 
-  if (frontSensorDistance > 100)
+//  if (frontSensorDistance > 100)
+//  {
+//    newDirection = 0; //Nothing ahead, go straight.
+//  }
+//  else //Use sidesensors to determine which way to turn.
   {
-    newDirection = 0; //Nothing ahead, go straight.
-  }
-  else //Use sidesensors to determine which way to turn.
-  {
-    
     int value = (rightSensorDistance * 100 / (leftSensorDistance + rightSensorDistance));
     //Serial.println(value);
     value = constrain(value, 0, 100);
-    value = map(value, 0, 100, -80, 80); //Go from percentage to degrees
+    value = map(value, 0, 100, -100, 100); //Go from percentage to degrees
     newDirection = value;
   }
 
   //Compensate angle using current speed. If we're driving fast, then make smaller turns.
-  if (getCurrentSpeed() > 50)
-  {
-    newDirection = newDirection / 2;
-  }
+  //if (getCurrentSpeed() > 50)
+  //{
+//    newDirection = newDirection / 2;
+//  }
 
   //If we're reversing, then turn
   if (getCurrentSpeed() < 0)

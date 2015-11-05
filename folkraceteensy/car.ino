@@ -16,10 +16,12 @@ void carDrive()
   int speed = calculateMotorSpeed();
   int direction = calculateDirection();
   //Serial.print("Speed: ");
-  //Serial.println(speed);
+  Serial.println(speed);
 
   motorSetSpeed(speed);
   steeringTurnTo(direction);
+  
+  //delay(10);
 }
 
 void carStop()
