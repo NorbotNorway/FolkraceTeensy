@@ -1,14 +1,11 @@
 # FolkraceTeensy
 Folkracer using Teensy 3.1
 
-#### TODO
+#### Next year...
 
-_Hardware_
-* Hook up two sidesensors
-* Test LiPo batteries
-* Hook up startmodule
-* Fix steering screw
-
-_Software_
-* Read two more sensor
-* Read start module
+* Bluetooth for control and telemetry
+* New sensors
+** gp2y0e02b
+** I2C 
+* New bumper
+* Tilt front sensor slightly upwards
